@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject basket;
+    public GameObject wolfTop;
+    public GameObject wolfBottom;
     public GameObject player;
 
     private bool isUp = true;
@@ -22,8 +23,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!isUp)
             {
-                float newY = basket.transform.position.y + 2f;
-                basket.transform.position = new Vector3(basket.transform.position.x, newY, basket.transform.position.z);
+                wolfBottom.SetActive(false);
+                wolfTop.SetActive(true);
                 isUp = true;
             }
         }
@@ -32,8 +33,8 @@ public class PlayerController : MonoBehaviour
         {
             if (isUp)
             {
-                float newY = basket.transform.position.y - 2f;
-                basket.transform.position = new Vector3(basket.transform.position.x, newY, basket.transform.position.z);
+                wolfBottom.SetActive(true);
+                wolfTop.SetActive(false);
                 isUp = false;
             }
         }
@@ -41,14 +42,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             Vector3 theScale = transform.localScale;
-            theScale.x = 1;
+            theScale.x = -1;
             player.transform.localScale = theScale;
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             Vector3 theScale = transform.localScale;
-            theScale.x = -1;
+            theScale.x = 1;
             player.transform.localScale = theScale;
         }
     }

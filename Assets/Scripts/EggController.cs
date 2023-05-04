@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class EggController : MonoBehaviour
 {
-    public LayerMask layerMask;
+    public Transform[] positions;
+    public GameObject egg;
+    public float tickTime = 1f;
+    private int currentPos = 0;
+    private float currTime = 0f;
+
+    void Start()
+    {
+        currTime = Time.time;
+    }
 
     // Update is called once per frame
-    void OnCollisionEnter2D(Collision2D col)
+    void FixedUpdate()
     {
-        if (col.gameObject.layer == 6)
+        if (Time.time - currTime > tickTime)
         {
-            //Destroy(gameObject);
+            egg.transform.position = positions[currentPos].position;
+            currentPos++;
+            currTime = Time.time;
         }
     }
 }
