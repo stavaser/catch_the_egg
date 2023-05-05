@@ -91,6 +91,25 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void CheckBombIsCaught(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                if (playerController.isLeft && playerController.isUp) DecreaseLives();
+                break;
+            case 1:
+                if (playerController.isLeft && !playerController.isUp) DecreaseLives();
+                break;
+            case 2:
+                if (!playerController.isLeft && playerController.isUp) DecreaseLives();
+                break;
+            case 3:
+                if (!playerController.isLeft && !playerController.isUp) DecreaseLives();
+                break;
+        }
+    }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene("CatchTheEgg");

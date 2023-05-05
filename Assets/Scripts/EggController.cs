@@ -6,8 +6,9 @@ public class EggController : MonoBehaviour
 {
 
     public GameObject egg;
+    public GameObject bomb;
     public Transform[] positions;
-    public float tickTime = 1f;
+    public float tickTime = 3f;
     public PlayerController player;
     private float currTime = 0f;
 
@@ -30,8 +31,25 @@ public class EggController : MonoBehaviour
     public void generateEgg()
     {
         int rand = Random.Range(0, 4);
-        egg = Instantiate(egg, positions[rand].position, Quaternion.identity);
-        EggBehaviour behaviour = egg.GetComponent<EggBehaviour>();
+        // int randBomb = Random.Range(0, 10);
+        // if (randBomb < 3)
+        // {
+        //     bomb = Instantiate(bomb, positions[rand].position, Quaternion.identity);
+        //     BombBehaviour behaviour = bomb.GetComponent<BombBehaviour>();
+        //     behaviour.spawnPosition = rand;
+        //     if (rand == 2 || rand == 3)
+        //     {
+        //         behaviour.isLeft = false;
+        //     }
+        //     else
+        //     {
+        //         behaviour.isLeft = true;
+        //     }
+        // }
+        // else
+        // {
+        GameObject newEgg = Instantiate(egg, positions[rand].position, Quaternion.identity);
+        EggBehaviour behaviour = newEgg.GetComponent<EggBehaviour>();
         behaviour.spawnPosition = rand;
         if (rand == 2 || rand == 3)
         {
@@ -41,6 +59,7 @@ public class EggController : MonoBehaviour
         {
             behaviour.isLeft = true;
         }
+        //}
     }
 
 

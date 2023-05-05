@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EggBehaviour : MonoBehaviour
+public class BombBehaviour : MonoBehaviour
 {
-
-    public Transform[] positions;
     private int currentPosition = 0;
     private float currTime = 0f;
     public float tickTime = 1f;
@@ -19,7 +17,6 @@ public class EggBehaviour : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Time.time - currTime > tickTime)
@@ -34,7 +31,7 @@ public class EggBehaviour : MonoBehaviour
     {
         if (currentPosition == 5)
         {
-            GameObject.Find("GameController").GetComponent<GameController>().CheckEggIsCaught(spawnPosition);
+            GameObject.Find("GameController").GetComponent<GameController>().CheckBombIsCaught(spawnPosition);
             Destroy(gameObject);
         }
 
