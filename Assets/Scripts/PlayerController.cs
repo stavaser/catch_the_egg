@@ -8,12 +8,9 @@ public class PlayerController : MonoBehaviour
     public GameObject wolfBottom;
     public GameObject player;
 
-    private bool isUp = true;
+    public bool isUp = true;
+    public bool isLeft = false;
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -44,6 +41,7 @@ public class PlayerController : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x = -1;
             player.transform.localScale = theScale;
+            isLeft = true;
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow))
@@ -51,6 +49,7 @@ public class PlayerController : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x = 1;
             player.transform.localScale = theScale;
+            isLeft = false;
         }
     }
 }

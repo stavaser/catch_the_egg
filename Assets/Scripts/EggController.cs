@@ -33,6 +33,7 @@ public class EggController : MonoBehaviour
         int rand = Random.Range(0, 4);
         egg = Instantiate(egg, positions[rand].position, Quaternion.identity);
         EggBehaviour behaviour = egg.GetComponent<EggBehaviour>();
+        behaviour.spawnPosition = rand;
         if (rand == 2 || rand == 3)
         {
             behaviour.isLeft = false;
@@ -42,4 +43,6 @@ public class EggController : MonoBehaviour
             behaviour.isLeft = true;
         }
     }
+
+
 }

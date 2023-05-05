@@ -10,6 +10,7 @@ public class EggBehaviour : MonoBehaviour
     private float currTime = 0f;
     public float tickTime = 1f;
     public bool isLeft = true;
+    public int spawnPosition;
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class EggBehaviour : MonoBehaviour
     {
         if (currentPosition == 5)
         {
-
+            GameObject.Find("GameController").GetComponent<GameController>().CheckEggIsCaught(spawnPosition);
             Destroy(gameObject);
         }
 

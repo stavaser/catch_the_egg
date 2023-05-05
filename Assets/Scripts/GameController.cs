@@ -3,27 +3,83 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI score;
+    [SerializeField] TextMeshProUGUI lives;
+    [SerializeField] GameObject gameOver;
 
-    private SpawnController spawnController;
+    public GameObject eggController;
     private int scoreCounter = 0;
+    public int livesCount = 3;
     public bool isGameActive;
+    public PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnController = GameObject.Find("Spawner").GetComponent<SpawnController>();
-
         isGameActive = true;
-        StartCoroutine(spawnController.SpawnRandom());
+    }
+
+    void FixedUpdate()
+    {
+        if (!isGameActive)
+        {
+            eggController.SetActive(isGameActive);
+        }
     }
 
     public void UpdateScore()
     {
-        scoreCounter++;
-        score.text = scoreCounter.ToString();
+        if (isGameActive)
+        {
+            scoreCounter++;
+            score.text = scoreCounter.ToString();
+        }
+    }
+
+    void DecreaseLives()
+    {
+        if (isGameActive)
+        {
+            livesCount--;
+            lives.text = livesCount.ToString();
+
+            if (livesCount == 0)
+            {
+                gameOver.SetActive(true);
+                isGameActive = false;
+            }
+        }
+    }
+
+    public void CheckEggIsCaught(int position)
+    {
+        switch (position)
+        {
+            case 0:
+                if (playerController.isLeft && playerController.isUp) UpdateScore();
+                else DecreaseLives();
+                break;
+            case 1:
+                if (playerController.isLeft && !playerController.isUp) UpdateScore();
+                else DecreaseLives();
+                break;
+            case 2:
+                if (!playerController.isLeft && playerController.isUp) UpdateScore();
+                else DecreaseLives();
+                break;
+            case 3:
+                if (!playerController.isLeft && !playerController.isUp) UpdateScore();
+                else DecreaseLives();
+                break;
+        }
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("CatchTheEgg");
     }
 }
