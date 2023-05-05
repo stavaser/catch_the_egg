@@ -7,9 +7,13 @@ public class EggController : MonoBehaviour
 
     public GameObject egg;
     public GameObject bomb;
+
+    // spawn positions
     public Transform[] positions;
+
+    // egg spawn time 
     public float tickTime = 3f;
-    public PlayerController player;
+    // current time since the last tick
     private float currTime = 0f;
 
     void Start()
@@ -21,8 +25,10 @@ public class EggController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // check if enough time has passed since the last tick
         if (Time.time - currTime > tickTime)
         {
+            // spawn new egg at random
             generateEgg();
             currTime = Time.time;
         }
@@ -30,7 +36,10 @@ public class EggController : MonoBehaviour
 
     public void generateEgg()
     {
+        // get random position index
         int rand = Random.Range(0, 4);
+
+        // TODO: code for generating bomb
         // int randBomb = Random.Range(0, 10);
         // if (randBomb < 3)
         // {
@@ -48,9 +57,15 @@ public class EggController : MonoBehaviour
         // }
         // else
         // {
+
+        // create new egg
         GameObject newEgg = Instantiate(egg, positions[rand].position, Quaternion.identity);
+
+        // set the egg's spawn position
         EggBehaviour behaviour = newEgg.GetComponent<EggBehaviour>();
         behaviour.spawnPosition = rand;
+
+        // determine the egg's side (left or right)
         if (rand == 2 || rand == 3)
         {
             behaviour.isLeft = false;
@@ -59,6 +74,7 @@ public class EggController : MonoBehaviour
         {
             behaviour.isLeft = true;
         }
+
         //}
     }
 

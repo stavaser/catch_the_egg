@@ -8,14 +8,15 @@ public class PlayerController : MonoBehaviour
     public GameObject wolfBottom;
     public GameObject player;
 
+    // player's current state
     public bool isUp = true;
     public bool isLeft = false;
-    // Start is called before the first frame update
 
     // Update is called once per frame
     void Update()
     {
 
+        // update player sprite based on pressed key
         if (Input.GetKey(KeyCode.UpArrow))
         {
             if (!isUp)

@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
             scoreCounter++;
             score.text = scoreCounter.ToString();
 
+            // increase difficulty (tick rate) after certain score
             if (scoreCounter > 10 && scoreCounter < 20)
             {
                 eggController.GetComponent<EggController>().tickTime = 2;
@@ -59,6 +60,7 @@ public class GameController : MonoBehaviour
             livesCount--;
             lives.text = livesCount.ToString();
 
+            // game over
             if (livesCount == 0)
             {
                 gameOver.SetActive(true);
@@ -70,6 +72,7 @@ public class GameController : MonoBehaviour
 
     public void CheckEggIsCaught(int position)
     {
+        // based on the egg's spawn position and the players current state, check if the was caught
         switch (position)
         {
             case 0:
@@ -91,6 +94,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // not used
     public void CheckBombIsCaught(int position)
     {
         switch (position)
@@ -133,6 +137,9 @@ public class GameController : MonoBehaviour
         }
     }
 
+    /**
+        Check if high score exists, if so set it on screen
+    */
     private void HighscoreExists()
     {
         if (PlayerPrefs.HasKey("highScore"))
