@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI score;
     [SerializeField] TextMeshProUGUI lives;
+    [SerializeField] TextMeshProUGUI highScore;
     [SerializeField] GameObject gameOver;
 
     public GameObject eggController;
@@ -21,6 +22,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         isGameActive = true;
+        HighscoreExists();
     }
 
     void FixedUpdate()
@@ -37,6 +39,16 @@ public class GameController : MonoBehaviour
         {
             scoreCounter++;
             score.text = scoreCounter.ToString();
+
+            if (scoreCounter > 10 && scoreCounter < 20)
+            {
+                eggController.GetComponent<EggController>().tickTime = 2;
+            }
+
+            if (scoreCounter > 20)
+            {
+                eggController.GetComponent<EggController>().tickTime = 1;
+            }
         }
     }
 
@@ -51,6 +63,7 @@ public class GameController : MonoBehaviour
             {
                 gameOver.SetActive(true);
                 isGameActive = false;
+                UpdateHighscore();
             }
         }
     }
@@ -81,5 +94,36 @@ public class GameController : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene("CatchTheEgg");
+    }
+
+    private void UpdateHighscore()
+    {
+        if (PlayerPrefs.HasKey("highScore"))
+        {
+            int highScore = PlayerPrefs.GetInt("highScore");
+            if (highScore < scoreCounter)
+            {
+                PlayerPrefs.SetInt("highScore", scoreCounter);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("highScore", scoreCounter);
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void HighscoreExists()
+    {
+        if (PlayerPrefs.HasKey("highScore"))
+        {
+            int highScoreInt = PlayerPrefs.GetInt("highScore");
+            highScore.text = highScoreInt.ToString();
+        }
+        else
+        {
+            highScore.text = 0.ToString();
+        }
     }
 }

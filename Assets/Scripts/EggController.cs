@@ -9,7 +9,6 @@ public class EggController : MonoBehaviour
     public Transform[] positions;
     public float tickTime = 1f;
     public PlayerController player;
-    private int currentPos = 1;
     private float currTime = 0f;
 
     void Start()
