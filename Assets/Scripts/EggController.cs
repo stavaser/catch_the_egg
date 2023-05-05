@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class EggController : MonoBehaviour
 {
-    public Transform[] positions;
+
     public GameObject egg;
+    public Transform[] positions;
     public float tickTime = 1f;
-    private int currentPos = 0;
+    public PlayerController player;
+    private int currentPos = 1;
     private float currTime = 0f;
 
     void Start()
     {
         currTime = Time.time;
+        generateEgg();
     }
 
     // Update is called once per frame
@@ -20,9 +23,23 @@ public class EggController : MonoBehaviour
     {
         if (Time.time - currTime > tickTime)
         {
-            egg.transform.position = positions[currentPos].position;
-            currentPos++;
+            generateEgg();
             currTime = Time.time;
+        }
+    }
+
+    public void generateEgg()
+    {
+        int rand = Random.Range(0, 4);
+        egg = Instantiate(egg, positions[rand].position, Quaternion.identity);
+        EggBehaviour behaviour = egg.GetComponent<EggBehaviour>();
+        if (rand == 2 || rand == 3)
+        {
+            behaviour.isLeft = false;
+        }
+        else
+        {
+            behaviour.isLeft = true;
         }
     }
 }
